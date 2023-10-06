@@ -6,7 +6,7 @@ import {
   Canvas,
   Filter,
   TextBlock
-} from "types";
+} from "./types";
 
 const block: Block = {
   id: "623",
@@ -45,7 +45,7 @@ const filter: Filter = {
   color: "#FFFFFF"
 };
 
-const textblock: TextBlock =  {
+const text: TextBlock =  {
   type: 'text',
   content: [chars, chars],
 }
