@@ -50,16 +50,6 @@ const App = () => {
     setNewElement(elem);
   };
 
-  // const [stateMenuText, setStateMenuText] = useState<MenuTextType>({
-  //   color: doc.defaultMenuText.color,
-  //   fontFamily: doc.defaultMenuText.fontFamily,
-  //   bold: doc.defaultMenuText.bold,
-  //   underline: doc.defaultMenuText.underline,
-  //   italic: doc.defaultMenuText.italic,
-  //   fontSize: doc.defaultMenuText.fontSize,
-  //   value: doc.defaultMenuText.value,
-  // });
-
   return (
     <div className="App">
       <Page

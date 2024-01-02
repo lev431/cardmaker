@@ -1,14 +1,15 @@
 import { PageProps } from "../models/models";
+import styles from "./buttonDownload.module.css";
 
 const ButtonDownload = (props: PageProps) => {
   const createFile = () => {
     const file = new Blob([JSON.stringify(props)], {
       type: "application/json",
-    }); // создаём файл на стороне пользователя
-    return file; //возвращаем созданный файл
+    });
+    return file;
   };
 
-  const file = createFile(); // переменная с файлом, который возвращает функция createFile()[которая выше]
+  const file = createFile();
 
   const downloadFile = () => {
     const url = URL.createObjectURL(file); // создаём ссылку на файл
@@ -19,7 +20,7 @@ const ButtonDownload = (props: PageProps) => {
     link.click(); //совершаем клик по ссылки внутри кода, чтобы сработало скачивание файла
   };
 
-  return <button onClick={downloadFile}>Скачать открытку</button>;
+  return <button onClick={downloadFile}><img className={styles.menuBtnImg} src="../../../resource/download.png" alt="text" /></button>;
 };
 
 export default ButtonDownload;
