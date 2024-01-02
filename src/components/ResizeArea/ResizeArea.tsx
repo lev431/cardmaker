@@ -1,32 +1,32 @@
 import { useRef, RefObject, useEffect } from "react";
-import { useResize, ControlResizeRefs } from "../../UseResize/UseResize";
+import { useResize, ControlResizeRefs } from "../../hooks/useResize/useResize";
 import { Dispatch, SetStateAction } from "react";
 import styles from "./resizeArea.module.css";
 
 import {
-  PageP,
-  TextBlockP,
-  ImageBlockP,
-  CircleP,
-  RectangleP,
-  FilterP,
+  PageProps,
+  TextBlockProps,
+  ImageBlockProps,
+  CircleProps,
+  RectangleProps,
+  FilterProps,
 } from "../models/models";
 
 type Props = {
   refResize: RefObject<HTMLDivElement>;
   newElement:
-    | TextBlockP
-    | ImageBlockP
-    | CircleP
-    | RectangleP
-    | FilterP;
+    | TextBlockProps
+    | ImageBlockProps
+    | CircleProps
+    | RectangleProps
+    | FilterProps;
   setNewElement: Dispatch<
     SetStateAction<
-      | TextBlockP
-      | ImageBlockP
-      | CircleP
-      | RectangleP
-      | FilterP
+      | TextBlockProps
+      | ImageBlockProps
+      | CircleProps
+      | RectangleProps
+      | FilterProps
     >
   >;
   pageX: number;
@@ -55,11 +55,11 @@ const ResizeArea = (props: Props) => {
     }px`;
 
     if (
-      newElement.y + dragEvent.clientY - mouseDownEvent.clientY <
-      newElement.y + newElement.height + 3
+      newElement.yPos + dragEvent.clientY - mouseDownEvent.clientY <
+      newElement.yPos + newElement.height + 3
     ) {
       refResize.current!.style.top = `${
-        newElement.y + dragEvent.clientY - mouseDownEvent.clientY
+        newElement.yPos + dragEvent.clientY - mouseDownEvent.clientY
       }px`;
     }
   };
@@ -70,11 +70,11 @@ const ResizeArea = (props: Props) => {
     }px`;
 
     if (
-      newElement.x + dragEvent.clientX - mouseDownEvent.clientX <
-      newElement.x + newElement.width + 3
+      newElement.xPos + dragEvent.clientX - mouseDownEvent.clientX <
+      newElement.xPos + newElement.width + 3
     ) {
       refResize.current!.style.left = `${
-        newElement.x + dragEvent.clientX - mouseDownEvent.clientX
+        newElement.xPos + dragEvent.clientX - mouseDownEvent.clientX
       }px`;
     }
   };
@@ -152,8 +152,8 @@ const ResizeArea = (props: Props) => {
         },
         onDrop: (dropEvent) => {
           console.log(refResize.current!.style.left);
-          let x: number = props.pageX + newElement.x + newElement.x,
-            y: number = props.pageY + newElement.y + newElement.y;
+          let x: number = props.pageX + newElement.xPos + newElement.xPos,
+            y: number = props.pageY + newElement.yPos + newElement.yPos;
           if (refResize.current?.getBoundingClientRect().x != x) {
             x = refResize.current!.getBoundingClientRect().x;
           } else if (refResize.current?.getBoundingClientRect().y != y) {
@@ -178,7 +178,7 @@ const ResizeArea = (props: Props) => {
       return () =>
         control.current!.removeEventListener("mousedown", onMouseDownResize);
     });
-  }, [newElement.width, newElement.height, newElement.x, newElement.y]);
+  }, [newElement.width, newElement.height, newElement.xPos, newElement.yPos]);
 
   return (
     <div className={styles.resizeArea}>

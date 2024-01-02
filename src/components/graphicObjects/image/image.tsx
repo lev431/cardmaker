@@ -1,14 +1,14 @@
 import { useState, RefObject } from "react";
-import { ImageBlockP } from "../../models/models";
+import { ImageBlockProps } from "../../models/models";
 import SelectionArea from "../../selectionArea/selectionArea";
-import styles from "./image.module.css";
+import style from "./image.module.css";
 
 type Props = {
-  props: ImageBlockP;
+  props: ImageBlockProps;
   ref: RefObject<HTMLDivElement>;
 };
 
-const Image = (props: ImageBlockP) => {
+const Image = (props: ImageBlockProps) => {
   const [activeSelectionArea, setActiveSelectionArea] = useState(false);
 
   const [state, setState] = useState(props);
@@ -22,7 +22,7 @@ const Image = (props: ImageBlockP) => {
 
   return (
     <img
-      className={styles.image}
+      className={style.image}
       style={styleProps}
       src={state.url}
       alt={state.id}

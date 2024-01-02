@@ -1,23 +1,24 @@
 import { useState } from "react";
 import SelectionArea from "../../selectionArea/selectionArea";
 
-import { RectangleP } from "../../models/models";
-import styles from "./rectangle.module.css";
+import { RectangleProps } from "../../models/models";
+import style from "./rectangle.module.css";
 
-const Rectangle = (props: RectangleP) => {
+const Rectangle = (props: RectangleProps) => {
   const [activeSelectionArea, setActiveSelectionArea] = useState(false);
 
   const [state, setState] = useState(props);
 
   const styleProps = {
-    backgroundColor: `${state.color}`,
+    backgroundImage: `${state.backgroundImage}`,
+    backgroundColor: `${state.backgroundColor}`,
     left: 0,
     top: 0,
     width: "100%",
     height: "100%",
   };
 
-  return <div className={styles.rectangle} style={styleProps}></div>;
+  return <div className={style.rectangle} style={styleProps}></div>;
 };
 
 export default Rectangle;

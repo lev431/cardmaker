@@ -127,7 +127,7 @@ const page2: PageProps = {
       height: 300,
       xPos: 300,
       yPos: 300,
-      url: "../../../photo/1.png",
+      url: "../../../resource/ded.png",
       allowedFormat: ["JPG", "JPEG", "PNG"],
       pic: null,
     },
@@ -179,7 +179,7 @@ const page3: PageProps = {
       height: 300,
       xPos: 300,
       yPos: 300,
-      url: "../../../resource/1.png",
+      url: "../../../resource/ded.png",
       allowedFormat: ["JPG", "JPEG", "PNG"],
       pic: null,
     },
@@ -224,7 +224,7 @@ const template1: TemplateProps = {
     {
       id: "text1",
       type: "text",
-      value: "С днём",
+      value: "С Новым",
       fontSize: 23,
       fontFamily: "Roboto",
       color: "#000000",
@@ -239,7 +239,7 @@ const template1: TemplateProps = {
     {
       id: "text2",
       type: "text",
-      value: "ковыряния в носу!",
+      value: "Годом!",
       fontSize: 30,
       fontFamily: "Roboto",
       color: "#565656",
@@ -258,7 +258,7 @@ const template1: TemplateProps = {
       height: 300,
       xPos: 250,
       yPos: 150,
-      url: "../../../resource/1.png",
+      url: "../../../resource/ded.png",
       allowedFormat: ["JPG", "JPEG", "PNG"],
       pic: null,
     },
@@ -279,7 +279,7 @@ const template2: TemplateProps = {
       bold: true,
       width: 200,
       height: 100,
-      xPos: 300,
+      xPos: 200,
       yPos: 100,
       italic: false,
       underline: false,
@@ -287,7 +287,7 @@ const template2: TemplateProps = {
     {
       id: "text2",
       type: "text",
-      value: "зелёных цифр в СберИнвестиции!",
+      value: "Рождения!",
       fontSize: 30,
       fontFamily: "Roboto",
       color: "#565656",
@@ -306,7 +306,7 @@ const template2: TemplateProps = {
       height: 200,
       xPos: 300,
       yPos: 200,
-      url: "../../../resource/2.png",
+      url: "../../../resource/party.png",
       allowedFormat: ["JPG", "JPEG", "PNG"],
       pic: null,
     },
@@ -317,7 +317,6 @@ const template3: TemplateProps = {
   id: "template1",
   name: "template1",
   blocks: [
-    greenFilter,
     {
       id: "img1",
       type: "image",
@@ -325,14 +324,14 @@ const template3: TemplateProps = {
       height: 200,
       xPos: 300,
       yPos: 200,
-      url: "../../../resource/3.png",
+      url: "../../../resource/Chill.png",
       allowedFormat: ["JPG", "JPEG", "PNG"],
       pic: null,
     },
     {
       id: "text1",
       type: "text",
-      value: "С днём",
+      value: "Отдыхай!",
       fontSize: 50,
       fontFamily: "Roboto",
       color: "#000000",
@@ -344,22 +343,6 @@ const template3: TemplateProps = {
       italic: false,
       underline: false,
     },
-    {
-      id: "text2",
-      type: "text",
-      value: "красных цифр в СберИнвестиции...",
-      fontSize: 100,
-      fontFamily: "Roboto",
-      color: "#565656",
-      bold: true,
-      width: 530,
-      height: 100,
-      xPos: 250,
-      yPos: 490,
-      italic: false,
-      underline: false,
-    },
-
     {
       id: "circle1",
       type: "circle",
@@ -428,17 +411,17 @@ const templateCollection: TemplatesCollection = {
 };
 
 const historyCommands: HistoryCommands = {
-  indexOfHistory: 0,
-  history: [page6],
+  indexOfHistory: 3,
+  history: [page1, page2, page3, page4, page5, page6],
 };
 
 const colors: Colors = [
-  "#ac00ff",
-  "#0000ff",
-  "#00ff00",
-  "#ff0000",
-  "#ffffff",
-  "#000000",
+  "#834D18",
+  "#1C542D",
+  "#4C2F27",
+  "#008B8B",
+  "#B15124",
+  "#FFCBDB",
 ];
 
 const fonts: Fonts = [

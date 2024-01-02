@@ -1,27 +1,27 @@
 import { useState } from "react";
 
-import { TextBlockP } from "../models/models";
+import { TextBlockProps } from "../models/models";
 
-import styles from "./textBlock.module.css";
+import style from "./textBlock.module.css";
 
-const TextBlock = (props: TextBlockP) => {
-  const [state, setState] = useState(props);
+const TextBlock = (props: TextBlockProps) => {
+  // const [state, setState] = useState(props);
   const styleProps = {
-    width: `${state.width}px`,
-    height: `${state.height}px`,
-    fontSize: `${state.fontSize}px`,
-    fontFamily: `${state.fontFamily}`,
-    color: `${state.color}`,
-    fontWeight: state.bold ? "900" : "300",
+    fontSize: `${props.fontSize}px`,
+    fontFamily: `${props.fontFamily}, sans-serif`,
+    color: `${props.color}`,
+    fontWeight: props.bold ? "700" : "400",
+    fontStyle: props.italic ? "italic" : "normal",
+    textDecoration: props.underline ? "underline" : "none",
   };
 
   return (
     <div
       onClick={(e: React.MouseEvent) => e.preventDefault()}
-      className={styles.textBlock}
+      className={style.textBlock}
       style={styleProps}
     >
-      {state.value}
+      {props.value}
     </div>
   );
 };

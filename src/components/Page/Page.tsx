@@ -1,58 +1,60 @@
 import Canvas from "../canvas/canvas";
 import { Dispatch, SetStateAction } from "react";
 import {
-  PageP,
-  TextBlockP,
-  ImageBlockP,
-  CircleP,
-  RectangleP,
-  FilterP,
+  PageProps,
+  TextBlockProps,
+  ImageBlockProps,
+  CircleProps,
+  RectangleProps,
+  FilterProps,
 } from "../models/models";
 
 import SelectionArea from "../selectionArea/selectionArea";
 
-import styles from "./page.module.css";
+import style from "./page.module.css";
 
 type Props = {
-  page: PageP;
+  page: PageProps;
   newElement:
-    | TextBlockP
-    | ImageBlockP
-    | CircleP
-    | RectangleP
-    | FilterP;
-  setPage: Dispatch<SetStateAction<PageP>>;
-  deleteNewElement: Dispatch<
+    | TextBlockProps
+    | ImageBlockProps
+    | CircleProps
+    | RectangleProps
+    | FilterProps;
+  setPage: Dispatch<SetStateAction<PageProps>>;
+  setNewElement: Dispatch<
     SetStateAction<
-      | TextBlockP
-      | ImageBlockP
-      | CircleP
-      | RectangleP
-      | FilterP
+      | TextBlockProps
+      | ImageBlockProps
+      | CircleProps
+      | RectangleProps
+      | FilterProps
     >
   >;
+  setShowMenuText: Dispatch<SetStateAction<boolean>>;
 };
 
 const Page = (props: Props) => {
-  const { page, newElement, setPage, deleteNewElement } = props;
+  const { page, newElement, setPage, setNewElement, setShowMenuText } = props;
 
   const stylePage = {
     width: `${page.width}px`,
     height: `${page.height}px`,
-    top: `${page.y}%`,
-    left: `${page.x}%`,
+    top: `${page.yPos}%`,
+    left: `${page.xPos}%`,
   };
 
   return (
-    <div className={styles.page} style={stylePage}>
+    <div className={style.page} style={stylePage}>
       <Canvas {...page} />
       {newElement != null ? (
         <SelectionArea
           newElement={newElement}
           setNewElement={setNewElement}
           setPage={setPage}
-          pageX={page.x}
-          pageY={page.y}
+          pageX={page.xPos}
+          pageY={page.yPos}
+          setShowMenuText={setShowMenuText}
         />
       ) : null}
     </div>

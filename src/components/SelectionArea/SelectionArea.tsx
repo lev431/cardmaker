@@ -1,5 +1,4 @@
-import { RefObject, useRef, useState, useEffect } from "react";
-import { SelectionAreaP } from "../models/models";
+import { useRef, useEffect } from "react";
 import styles from "./selectionArea.module.css";
 
 import TextBlock from "../textBlock/textBlock";
@@ -9,54 +8,54 @@ import Image from "../graphicObjects/image/image";
 import Filter from "../filter/filter";
 import { Dispatch, SetStateAction } from "react";
 
-import { UseDnD } from "../../UseDnd/UseDnd";
+import { useDnD } from "../../hooks/useDnD/useDnD";
 
 import ResizeArea from "../resizeArea/resizeArea";
 
 import {
-  PageP,
-  TextBlockP,
-  ImageBlockP,
-  CircleP,
-  RectangleP,
-  FilterP,
+  PageProps,
+  TextBlockProps,
+  ImageBlockProps,
+  CircleProps,
+  RectangleProps,
+  FilterProps,
+  MenuText,
 } from "../models/models";
 
 type Props = {
   newElement:
-    | TextBlockP
-    | ImageBlockP
-    | CircleP
-    | RectangleP
-    | FilterP;
-  setPage: Dispatch<SetStateAction<PageP>>;
+    | TextBlockProps
+    | ImageBlockProps
+    | CircleProps
+    | RectangleProps
+    | FilterProps;
+  setPage: Dispatch<SetStateAction<PageProps>>;
   setNewElement: Dispatch<
     SetStateAction<
-      | TextBlockP
-      | ImageBlockP
-      | CircleP
-      | RectangleP
-      | FilterP
+      | TextBlockProps
+      | ImageBlockProps
+      | CircleProps
+      | RectangleProps
+      | FilterProps
     >
   >;
+  stateMenu: MenuText;
   pageX: number;
   pageY: number;
+  setShowMenuText: Dispatch<SetStateAction<boolean>>;
 };
 
 const SelectionArea = (props: Props) => {
-  const { newElement, setPage, setNewElement } = props;
-
-  const [state, setState] = useState(props.newElement);
- 
+  const { newElement, setPage, setNewElement, setShowMenuText } = props;
 
   const styleArea = {
     width: newElement.width,
     height: newElement.height,
-    top: newElement.y,
-    left: newElement.x,
+    top: newElement.yPos,
+    left: newElement.xPos,
   };
 
-  const { registerDndItem } = UseDnD();
+  const { registerDndItem } = useDnD();
 
   const ref = useRef<HTMLDivElement>(null);
   const dndControlRef = useRef<HTMLDivElement>(null);
@@ -64,15 +63,15 @@ const SelectionArea = (props: Props) => {
 
   const addElement = (
     newElement:
-      | TextBlockP
-      | ImageBlockP
-      | CircleP
-      | RectangleP
-      | FilterP
+      | TextBlockProps
+      | ImageBlockProps
+      | CircleProps
+      | RectangleProps
+      | FilterProps
   ) => {
     switch (newElement.type) {
       case "text":
-        return <TextBlock {...newElement} />;
+        return <TextBlock {...newElement} />; //* поменять переданные элементы на stateMenu. Может возникнуть проблема с типами.
       case "circle":
         return <Circle {...newElement} />;
       case "rectangle":
@@ -87,18 +86,19 @@ const SelectionArea = (props: Props) => {
   };
 
   const deleteNewItem = () => {
+    setShowMenuText(() => false);
     setNewElement(() => null!);
   };
 
   const addElemToCanvas = (e: MouseEvent) => {
     if (e.target === refAreaWrapper.current) {
-      setPage((page: PageP) => {
+      setPage((page: PageProps) => {
         return {
           ...page,
           elements: [...page.elements, newElement],
         };
       });
-      setNewElement(null!);
+      deleteNewItem();
     }
   };
 
@@ -110,30 +110,30 @@ const SelectionArea = (props: Props) => {
 
     const onMouseDown = (mouseDownEvent: MouseEvent) => {
       onDragStart({
-        onDrag: (dragEvent) => {
+        onDrag: (dragEvent: MouseEvent) => {
           dragEvent.stopPropagation();
           dragEvent.preventDefault();
           // console.log(dragEvent, mouseDownEvent);
           ref.current!.style.top = `${
-            dragEvent.clientY + (newElement.y - mouseDownEvent.clientY)
+            dragEvent.clientY + (newElement.yPos - mouseDownEvent.clientY)
           }px`;
           ref.current!.style.left = `${
-            dragEvent.clientX + (newElement.x - mouseDownEvent.clientX)
+            dragEvent.clientX + (newElement.xPos - mouseDownEvent.clientX)
           }px`;
         },
-        onDrop: (dropEvent) => {
+        onDrop: (dropEvent: MouseEvent) => {
           dropEvent.stopPropagation();
-          setNewElement({
+          setNewElement((newElement) => ({
             ...newElement,
-            x:
+            xPos:
               dropEvent.clientX +
-              (newElement.x - mouseDownEvent.clientX) +
+              (newElement.xPos - mouseDownEvent.clientX) +
               3,
-            y:
+            yPos:
               dropEvent.clientY +
-              (newElement.y - mouseDownEvent.clientY) +
+              (newElement.yPos - mouseDownEvent.clientY) +
               5,
-          });
+          }));
         },
       });
     };
@@ -143,7 +143,7 @@ const SelectionArea = (props: Props) => {
       control.addEventListener("mousedown", onMouseDown);
       return () => control.removeEventListener("mousedown", onMouseDown);
     }
-  }, [newElement.width, newElement.height, newElement.x, newElement.y]);
+  }, [newElement.width, newElement.height, newElement.xPos, newElement.yPos]);
 
   return (
     <div
@@ -153,13 +153,15 @@ const SelectionArea = (props: Props) => {
     >
       <div style={styleArea} ref={ref} className={styles.selectionArea}>
         <div ref={dndControlRef} className={styles.dndBlock}></div>
-        <ResizeArea
-          refResize={ref}
-          newElement={newElement}
-          setNewElement={setNewElement}
-          pageX={props.pageX}
-          pageY={props.pageY}
-        />
+        {newElement.type !== "text" ? (
+          <ResizeArea
+            refResize={ref}
+            newElement={newElement}
+            setNewElement={setNewElement}
+            pageX={props.pageX}
+            pageY={props.pageY}
+          />
+        ) : null}
         {addElement(newElement)}
         <div onClick={deleteNewItem}>
           <img

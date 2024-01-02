@@ -1,103 +1,98 @@
+import { Dispatch, SetStateAction } from "react";
+
 import {
-  TextBlockP,
-  ImageBlockP,
-  CircleP,
-  RectangleP,
-  FilterP,
+  TextBlockProps,
+  ImageBlockProps,
+  CircleProps,
+  RectangleProps,
+  FilterProps,
 } from "../models/models";
+
+import styles from './Menu.module.css';
 
 type props = {
   addElement: (
     elemt:
-      | TextBlockP
-      | ImageBlockP
-      | CircleP
-      | RectangleP
-      | FilterP
+      | TextBlockProps
+      | ImageBlockProps
+      | CircleProps
+      | RectangleProps
+      | FilterProps
   ) => void;
+  defaultMenuText: TextBlockProps;
+  setShowMenuText: Dispatch<SetStateAction<boolean>>;
 };
 
 const Menu = (props: props) => {
-  const { addElement } = props;
+  const { addElement, defaultMenuText, setShowMenuText } = props;
 
   const addTextBlock = () => {
-    const elem: TextBlockP = {
+    const elem: TextBlockProps = {
       type: "text",
-      id: "asdasd223",
-      width: 200,
-      height: 100,
-      x: 400,
-      y: 400,
-      fontSize: 20,
-      fontFamily: `Roboto`,
-      color: `#ff00e4`,
-      bold: false,
-      value: "Добавить текст",
+      id: defaultMenuText.value,
+      xPos: 400,
+      yPos: 400,
+      fontSize: defaultMenuText.fontSize,
+      fontFamily: defaultMenuText.fontFamily,
+      color: defaultMenuText.color,
+      bold: defaultMenuText.bold,
+      italic: defaultMenuText.italic,
+      underline: defaultMenuText.underline,
+      value: defaultMenuText.value,
     };
+    setShowMenuText(() => true);
     addElement(elem);
   };
 
   const addImage = () => {
-    const elem: ImageBlockP = {
+    const elem: ImageBlockProps = {
       id: "img1",
       type: "image",
       width: 200,
       height: 200,
-      x: 300,
-      y: 200,
-      url: "../../../resource/1.png",
+      xPos: 300,
+      yPos: 200,
+      url: "../../../resource/Chill.png",
+      allowedFormat: ["JPG", "JPEG", "PNG"],
+      pic: null,
     };
     addElement(elem);
   };
 
   const addRectangle = () => {
-    const elem: RectangleP = {
+    const elem: RectangleProps = {
       id: "rectangle1",
       type: "rectangle",
-      color: "#6aa449",
+      backgroundColor: "#6aa449",
+      backgroundImage: "",
       width: 200,
       height: 200,
-      x: 600,
-      y: 300,
+      xPos: 600,
+      yPos: 300,
     };
     addElement(elem);
   };
 
   const addCircle = () => {
-    const elem: CircleP = {
+    const elem: CircleProps = {
       id: "circle2",
       type: "circle",
-      color: "#000000",
+      backgroundColor: "#000000",
+      backgroundImage: "",
       width: 400,
       height: 400,
-      x: 400,
-      y: 400,
-    };
-    addElement(elem);
-  };
-
-  const addFilter = () => {
-    const elem: FilterP = {
-      color: "#3fc11c",
-      name: "greenFilter",
-      type: "filter",
-      id: "filter1",
-      opacity: 0.5,
-      width: 800,
-      height: 600,
-      x: 0,
-      y: 0,
+      xPos: 400,
+      yPos: 400,
     };
     addElement(elem);
   };
 
   return (
-    <div className="menu">
-      <button onClick={addTextBlock}>Добавить текст</button>
-      <button onClick={addCircle}>Добавить круг</button>
-      <button onClick={addRectangle}>Добавить квадрат</button>
-      <button onClick={addImage}>Добавить картинку</button>
-      <button onClick={addFilter}>Добавить фильтр</button>
+    <div className={styles.menu}>
+      <button className={styles.menuBtn} onClick={addTextBlock}><img className={styles.menuBtnImg} src="../../../resource/text.png" alt="text" /></button>
+      <button className={styles.menuBtn}  onClick={addCircle}><img className={styles.menuBtnImg} src="../../../resource/circle.png" alt="circle" /></button>
+      <button className={styles.menuBtn} onClick={addRectangle}><img className={styles.menuBtnImg} src="../../../resource/rectangle.png" alt="rect" /></button>
+      <button className={styles.menuBtn} onClick={addImage}><img className={styles.menuBtnImg} src="../../../resource/image.png" alt="image" /></button>
     </div>
   );
 };

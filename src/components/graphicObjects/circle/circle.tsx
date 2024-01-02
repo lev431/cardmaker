@@ -1,15 +1,16 @@
 import { RefObject, useState } from "react";
 
-import { CircleP } from "../../models/models";
+import { CircleProps } from "../../models/models";
 import SelectionArea from "../../selectionArea/selectionArea";
 import style from "./circle.module.css";
 
-const Circle = (props: CircleP) => {
+const Circle = (props: CircleProps) => {
   const [activeSelectionArea, setActiveSelectionArea] = useState(false);
 
   const [state, setState] = useState(props);
   const styleProps = {
-    backgroundColor: `${state.color}`,
+    backgroundImage: `${state.backgroundImage}`,
+    backgroundColor: `${state.backgroundColor}`,
     left: 0,
     top: 0,
     width: "100%",

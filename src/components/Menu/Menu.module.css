@@ -1,13 +1,16 @@
-li {
-  list-style: none;
+.menu {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+  background-color: purple;
+  padding: 20px;
 }
 
-button {
-  background: none;
-  border: none;
+.menuBtn {
+  margin: 10px 0;
 }
 
-img {
-  width: 40px;
-  height: auto;
+.menuBtnImg {
+  max-width: 50px;
+  width: 100%;
 }

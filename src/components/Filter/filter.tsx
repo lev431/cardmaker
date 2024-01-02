@@ -1,17 +1,17 @@
 import { useState } from "react";
 
-import { FilterP } from "../models/models";
-import styles from "./filter.module.css";
+import { FilterProps } from "../models/models";
+import style from "./filter.module.css";
 
-const Filter = (props: FilterP) => {
+const Filter = (props: FilterProps) => {
   const [state, setState] = useState(props);
 
   const styleProps = {
     opacity: state.opacity,
-    backgroundColor: state.color,
+    backgroundColor: state.colorOfFilter,
   };
 
-  return <div className={styles.filter} style={styleProps}></div>;
+  return <div className={style.filter} style={styleProps}></div>;
 };
 
 export default Filter;
