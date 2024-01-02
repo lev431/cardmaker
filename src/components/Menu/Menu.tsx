@@ -63,7 +63,7 @@ const Menu = (props: props) => {
     const elem: RectangleProps = {
       id: "rectangle1",
       type: "rectangle",
-      backgroundColor: "#6aa449",
+      backgroundColor: "#834D18",
       backgroundImage: "",
       width: 200,
       height: 200,
@@ -77,7 +77,7 @@ const Menu = (props: props) => {
     const elem: CircleProps = {
       id: "circle2",
       type: "circle",
-      backgroundColor: "#000000",
+      backgroundColor: "#1C542D",
       backgroundImage: "",
       width: 400,
       height: 400,
@@ -87,9 +87,25 @@ const Menu = (props: props) => {
     addElement(elem);
   };
 
+  const addFilter = () => {
+    const elem: FilterProps = {
+      colorOfFilter: "#3fc11c",
+      name: "greenFilter",
+      type: "filter",
+      id: "filter1",
+      opacity: 0.5,
+      width: 800,
+      height: 600,
+      xPos: 0,
+      yPos: 0,
+    };
+    addElement(elem);
+  };
+
   return (
     <div className={styles.menu}>
       <button className={styles.menuBtn} onClick={addTextBlock}><img className={styles.menuBtnImg} src="../../../resource/text.png" alt="text" /></button>
+      <button className={styles.menuBtn} onClick={addFilter}><img className={styles.menuBtnImg} src="../../../resource/filter.png" alt="filter" /></button>
       <button className={styles.menuBtn}  onClick={addCircle}><img className={styles.menuBtnImg} src="../../../resource/circle.png" alt="circle" /></button>
       <button className={styles.menuBtn} onClick={addRectangle}><img className={styles.menuBtnImg} src="../../../resource/rectangle.png" alt="rect" /></button>
       <button className={styles.menuBtn} onClick={addImage}><img className={styles.menuBtnImg} src="../../../resource/image.png" alt="image" /></button>
