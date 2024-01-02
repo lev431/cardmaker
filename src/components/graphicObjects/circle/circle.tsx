@@ -1,16 +1,22 @@
-import { Circle as CircleProps } from "../../models/models";
+import { RefObject, useState } from "react";
+
+import { CircleP } from "../../models/models";
+import SelectionArea from "../../selectionArea/selectionArea";
 import style from "./circle.module.css";
 
-const Circle = (props: CircleProps) => {
+const Circle = (props: CircleP) => {
+  const [activeSelectionArea, setActiveSelectionArea] = useState(false);
+
+  const [state, setState] = useState(props);
   const styleProps = {
-    Color: `${props.color}`,
-    width: `${props.width}px`,
-    height: `${props.height}px`,
-    left: `${props.x}px`,
-    top: `${props.y}px`,
+    backgroundColor: `${state.color}`,
+    left: 0,
+    top: 0,
+    width: "100%",
+    height: "100%",
   };
 
-  return <svg className={style.circle} style={styleProps}></svg>;
+  return <div className={style.circle} style={styleProps}></div>;
 };
 
 export default Circle;

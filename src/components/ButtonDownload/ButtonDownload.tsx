@@ -1,6 +1,7 @@
-import { Page } from "../models/models";
+import { PageP } from "../models/models";
+import styles from "./buttonDownload.module.css";
 
-const ButtonDownload = (props: Page) => {
+const ButtonDownload = (props: PageP) => {
   const createFile = () => {
     const file = new Blob([JSON.stringify(props)], {
       type: "application/json",
@@ -19,7 +20,10 @@ const ButtonDownload = (props: Page) => {
     link.click(); //совершаем клик по ссылки внутри кода, чтобы сработало скачивание файла
   };
 
-  return <button onClick={downloadFile}>Скачать открытку</button>;
+  return(
+    <button onClick={downloadFile}>
+    </button>
+  );
 };
 
 export default ButtonDownload;

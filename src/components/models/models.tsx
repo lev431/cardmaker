@@ -12,9 +12,9 @@ type Block = Position & Size & {
   id: string;
 };
 
-type SelectionArea = Block & Position;
+type SelectionAreaP = Block & Position;
 
-type TextBlock = Block & {
+type TextBlockP = Block & {
   type: "text";
   fontSize: number;
   fontFamily: string;
@@ -23,7 +23,7 @@ type TextBlock = Block & {
   value: string;
 };
 
-type ImageBlock = Block & {
+type ImageBlockP = Block & {
   type: "image";
   url: string;
 };
@@ -32,19 +32,16 @@ type GraphicObjectBlock = Block & {
   color: string;
 };
 
-type Circle = GraphicObjectBlock & {
+type CircleP = GraphicObjectBlock & {
   type: "circle"
 };
 
-type Triangle = GraphicObjectBlock & {
-  type: "triangle"
-};
 
-type Rectangle = GraphicObjectBlock & {
+type RectangleP = GraphicObjectBlock & {
   type: "rectangle"
 };
 
-type Filter = {
+type FilterP = Block & {
   name: string;
   type: "filter";
   id: string;
@@ -52,67 +49,83 @@ type Filter = {
   opacity: number;
 };
 
-type FilterCollection = Array<Filter>;
+type FilterCollection = Array<FilterP>;
 
 type Template = {
   id: string;
   name: string;
-  blocks: Array<TextBlock | ImageBlock | Filter | Circle | Rectangle>
+  blocks: Array<TextBlockP | ImageBlockP | FilterP | CircleP | RectangleP>
 };
 
 type TemplatesCollection = {
   templates: Array<Template>;
 };
 
-type Page = Block & {
+type PageP = Block & {
   id: string;
-  elements: Array<TextBlock | ImageBlock | Filter | Circle | Rectangle>;
+  elements: Array<TextBlockP | ImageBlockP | FilterP | CircleP | RectangleP>;
 };
 
 type History = {
   index: number;
-  history: Array<Page>;
+  history: Array<PageP>;
 };
 
 
-type Doc = {
-  page: Page;
+type DocP = {
+  page: PageP;
   historyCommands: History;
   filterCollection: FilterCollection;
   templateCollection: TemplatesCollection;
-  selectionArea: SelectionArea;
+  selectionArea: SelectionAreaP;
 };
 
-const greenFilter: Filter = {
+const greenFilter: FilterP = {
   color: "#3fc11c",
   name: "greenFilter",
   type: "filter",
   id: "filter1",
   opacity: 0.5,
+  width: 800,
+  height: 600,
+  x: 0,
+  y: 0,
 };
 
-const blueFilter: Filter = {
+const blueFilter: FilterP = {
   name: "blueFilter",
   color: "#009afc",
   type: "filter",
   id: "filter2",
   opacity: 0.5,
+  width: 800,
+  height: 600,
+  x: 0,
+  y: 0,
 };
 
-const redFilter: Filter = {
+const redFilter: FilterP = {
   name: "redFilter",
   color: "#fc0000",
   type: "filter",
   id: "filter3",
   opacity: 0.5,
+  width: 800,
+  height: 600,
+  x: 0,
+  y: 0,
 };
 
-const grayFilter: Filter = {
+const grayFilter: FilterP = {
   name: "grayFilter",
   color: "#909090",
   type: "filter",
   id: "filter4",
   opacity: 0.5,
+  width: 800,
+  height: 600,
+  x: 0,
+  y: 0,
 };
 
 const filterCollection: FilterCollection = [
@@ -122,7 +135,7 @@ const filterCollection: FilterCollection = [
   grayFilter,
 ];
 
-const page1: Page = {
+const page1: PageP = {
   // Минимальные данные
   id: "page1",
   width: 800,
@@ -132,7 +145,7 @@ const page1: Page = {
   elements: [],
 };
 
-const page2: Page = {
+const page2: PageP = {
   //Средние данные
   id: "page1",
   width: 800,
@@ -178,7 +191,7 @@ const page2: Page = {
   ],
 };
 
-const page3: Page = {
+const page3: PageP = {
   //максимальные данные для page
   id: "page1",
   width: 800,
@@ -245,7 +258,7 @@ const page3: Page = {
   ],
 };
 
-const selectionArea: SelectionArea = {
+const selectionArea: SelectionAreaP = {
   id: "idSelect",
   width: 0,
   height: 0,
@@ -368,7 +381,7 @@ const template3: Template = {
   ],
 };
 
-const page4: Page = {
+const page4: PageP = {
   //максимальные данные для page
   id: "page1",
   width: 800,
@@ -378,7 +391,7 @@ const page4: Page = {
   elements: [...template1.blocks],
 };
 
-const page5: Page = {
+const page5: PageP = {
   id: "page1",
   width: 800,
   height: 600,
@@ -387,7 +400,7 @@ const page5: Page = {
   elements: [...template2.blocks],
 };
 
-const page6: Page = {
+const page6: PageP = {
   id: "page1",
   width: 800,
   height: 600,
@@ -405,7 +418,7 @@ const historyCommands: History = {
   history: [page1, page2, page3, page4, page5, page6],
 };
 
-const doc: Doc = {
+const doc: DocP = {
   page: historyCommands.history[historyCommands.index],
   templateCollection,
   historyCommands,
@@ -414,14 +427,14 @@ const doc: Doc = {
 };
 
 export type {
-  Page,
-  Doc,
-  Filter,
-  TextBlock,
-  Triangle,
-  Rectangle,
-  Circle,
-  ImageBlock,
+  PageP,
+  DocP,
+  FilterP,
+  TextBlockP,
+  RectangleP,
+  CircleP,
+  ImageBlockP,
+  SelectionAreaP,
 };
 
 export { doc };

@@ -1,29 +1,29 @@
-import { TextBlock  as TextBlockProps} from "../models/models";
-import style from "./textBlock.module.css";
+import { useState } from "react";
 
-const TextBlock = (props: TextBlockProps) => {
-  const textBlockData = {
-    id: props.id,
-    type: props.type,
-    data: props.value,
-  };
+import { TextBlockP } from "../models/models";
 
+import styles from "./textBlock.module.css";
+
+const TextBlock = (props: TextBlockP) => {
+  const [state, setState] = useState(props);
   const styleProps = {
-    width: `${props.width}px`,
-    height: `${props.height}px`,
-    top: `${props.y}px`,
-    left: `${props.x}px`,
-    fontSize: `${props.fontSize}px`,
-    fontFamily: `${props.fontFamily}`,
-    color: `${props.color}`,
-    fontWeight: props.bold ? "900" : "300",
+    width: `${state.width}px`,
+    height: `${state.height}px`,
+    fontSize: `${state.fontSize}px`,
+    fontFamily: `${state.fontFamily}`,
+    color: `${state.color}`,
+    fontWeight: state.bold ? "900" : "300",
   };
 
   return (
-    <p className={style.textBlock} style={styleProps}>
-      {textBlockData.data}
-    </p>
-  ); 
+    <div
+      onClick={(e: React.MouseEvent) => e.preventDefault()}
+      className={styles.textBlock}
+      style={styleProps}
+    >
+      {state.value}
+    </div>
+  );
 };
 
 export default TextBlock;

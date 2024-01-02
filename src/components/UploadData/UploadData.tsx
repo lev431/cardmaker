@@ -1,11 +1,12 @@
-import { Page } from "../models/models";
+import { PageP } from "../models/models";
+import { Dispatch, SetStateAction } from "react";
 
 import { ChangeEvent } from "react";
 type Props = {
-  setPage: (data: Page) => void;
+  setPage: Dispatch<SetStateAction<PageP>>;
 };
 
-const UploadData = (props: Props) => {
+const LoadInput = (props: Props) => {
   const { setPage } = props;
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,13 +24,15 @@ const UploadData = (props: Props) => {
         if (file.type !== "application/json")
           throw Error("invalid file: " + file.type);
         const dataParsing = JSON.parse(reader.result);
-        setPage({
-          id: dataParsing.id,
-          width: dataParsing.width,
-          height: dataParsing.height,
-          y: dataParsing.y,
-          x: dataParsing.x,
-          elements: [...dataParsing.elements],
+        setPage(() => {
+          return {
+            id: dataParsing.id,
+            width: dataParsing.width,
+            height: dataParsing.height,
+            y: dataParsing.yPos,
+            x: dataParsing.xPos,
+            elements: [...dataParsing.elements],
+          };
         });
       } catch (error) {
         alert(error);
@@ -42,9 +45,9 @@ const UploadData = (props: Props) => {
       accept=".json"
       onChange={onChange}
       type="file"
-      placeholder="Загрузить открытку"
+      placeholder="Загрузить"
     />
   );
 };
 
-export default UploadData;
+export default LoadInput;
